@@ -1,0 +1,16 @@
+<sounds root="sfx/">
+	<!-->  H.M.B.P Start </!-->
+	<sound name="TV Noise">
+		<sample weight="1" path="tv_noise.wav"/>
+		<sample weight="1" path="tv_noise2.wav"/>
+		<sample weight="1" path="tv_noise3.wav"/>
+	</sound>
+	<sound name="Anger Scream">
+		<sample weight="1" path="greed scream backward.wav"/>
+	</sound>
+
+	<!-->  HMBPEPTTN Start </!-->
+	<sound name="Multi Scream02">
+		<sample weight="1" path="multi scream.wav"/>
+	</sound>
+</sounds>

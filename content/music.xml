@@ -1,0 +1,4 @@
+<music root="music/">
+	<!-->  HMBPEPTTN Start </!-->
+	<track name="Mom's Last Ditch" path="mom last ditch.ogg" loop="true" />
+</music>

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+    <name>HardMode Major Boss Patterns</name>
+    <directory>h.m.b.p</directory>
+    <id>1232335391</id>
+    <description>This MOD is adds HardMode Major Boss Patterns.
+And some boss's patterns have been enhanced.
+
+※ If sub-MODs is not activated, the Mod does not use some bosses's MOD pattern or phase.</description>
+    <version>1.50</version>
+    <visibility>Public</visibility>
+    <tag id="Lua"/>
+    <tag id="Enemies"/>
+    <tag id="Bosses"/>
+    <tag id="Hazards"/>
+    <tag id="Tweaks"/>
+    <tag id="Graphics"/>
+    <tag id="Sound Effects"/>
+</metadata>
