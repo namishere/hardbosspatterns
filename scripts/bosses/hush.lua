@@ -17,7 +17,7 @@ HMBP:AddCallback(ModCallbacks.MC_POST_NPC_INIT, function(_, boss)
 	data.handatck = false
 	data.random = rng:Random(0,90)
 	data.VesselSpawn = false
-end, 407)
+end, EntityType.ENTITY_HUSH)
 
 function HMBP:Hush(boss)
 	if boss.Variant == 0 and game.Difficulty % 2 == 1 then
@@ -110,7 +110,7 @@ function HMBP:Hush(boss)
 			end
 			if boss.StateFrame % 50 == 0 and boss.StateFrame >= 160 and boss.StateFrame < 400 and denpnapi then
 				Isaac.Spawn(554, Isaac.GetEntityVariantByName("Hushling"), 0, Isaac.GetRandomPosition(1), Vector(0,0), boss)
-				boss:PlaySound(423, 0.45, 0, false, math.random(15,20) * 0.1)
+				boss:PlaySound(423, 0.45, 0, false, rng:Random(15,20) * 0.1)
 			end
 			if sprhs:IsPlaying("Puffed2Loop3") and boss.StateFrame >= 400 then
 				sprhs:Play("Pant", true)
@@ -165,7 +165,7 @@ function HMBP:Hush(boss)
 			or sprhs:IsPlaying("AttackReady"..data.FAW)
 			or sprhs:IsPlaying("AttackLoop"..data.FAW.."2") then
 				if boss.FrameCount % 10 == 0 and not sprhs:IsPlaying("AttackLoop"..data.FAW.."2") then
-					local Eye = HMBP.ProjectileParams()
+					local Eye = ProjectileParams()
 					Eye.FallingAccelModifier = -0.165
 					Eye.FallingSpeedModifier = 0
 					Eye.HeightModifier = -6
@@ -173,26 +173,27 @@ function HMBP:Hush(boss)
 					Eye.Scale = 1.5
 					Eye.Color = Color(0.3,0,0.5,1,0,0,0)
 					Eye.Variant = REPENTANCE and 6 or 0
-					HMBP.FireProjectile(boss, bltpos2, Vector.FromAngle(direction - (35 - boss.FrameCount % 50) * 2):Resized(7), 0, Eye)
-					HMBP.FireProjectile(boss, bltpos3, Vector.FromAngle(direction + (35 - boss.FrameCount % 50) * 2):Resized(7), 0, Eye)
+					Eye.Variant = REPENTANCE and 6 or 0
+					boss:FireProjectiles(bltpos2, Vector.FromAngle(direction - (35 - boss.FrameCount % 50) * 2):Resized(7), 0, Eye)
+					boss:FireProjectiles(bltpos3, Vector.FromAngle(direction + (35 - boss.FrameCount % 50) * 2):Resized(7), 0, Eye)
 				end
 				if sprhs:IsPlaying("AttackLoop"..data.FAW.."2")
 				and boss.ProjectileCooldown <= 139 then
-					local Mouth = HMBP.ProjectileParams()
+					local Mouth = ProjectileParams()
 					Mouth.FallingAccelModifier = -0.17
 					Mouth.FallingSpeedModifier = 0
-					if math.random(1,6) == 1 then
+					if rng:Random(1,6) == 1 then
 						Mouth.BulletFlags = 1 << 5 | ProjectileFlags.CONTINUUM
-					elseif math.random(1,6) == 2 then
+					elseif rng:Random(1,6) == 2 then
 						Mouth.BulletFlags = 1 << 22 | ProjectileFlags.CONTINUUM
 					else
 						Mouth.BulletFlags = ProjectileFlags.CONTINUUM
 					end
-					Mouth.HeightModifier = -math.random(65,140) * 0.1
+					Mouth.HeightModifier = -rng:Random(65,140) * 0.1
 					Mouth.Scale = 1.5
 					Mouth.Variant = REPENTANCE and 6 or 0
 					Mouth.Color = Color(0.3,0,0.5,1,0,0,0)
-					boss:FireProjectiles(bltpos + Vector.FromAngle(direction-90):Resized(math.random(-35,35)),
+					boss:FireProjectiles(bltpos + Vector.FromAngle(direction-90):Resized(rng:Random(-35,35)),
 					Vector.FromAngle(direction):Resized(20), 0, Mouth)
 				end
 			end
@@ -246,8 +247,8 @@ function HMBP:Hush(boss)
 				boss.Velocity = Vector(0,-0.95)
 				boss.StateFrame = boss.StateFrame - 1
 				if (HMBPENTS and boss.FrameCount % 25 == 0) or (not HMBPENTS and boss.FrameCount % 10 == 0) then
-					data.random = math.random(0,90)
-					local eye = HMBP.ProjectileParams()
+					data.random = rng:Random(0,90)
+					local eye = ProjectileParams()
 					eye.FallingAccelModifier = -0.17
 					eye.HeightModifier = -7
 					eye.Color = Color(0.85,0.85,1.5,1,0,0,0)
@@ -275,10 +276,10 @@ function HMBP:Hush(boss)
 
 			if boss.HitPoints / boss.MaxHitPoints <= 0.8 then
 				if sprhs:IsPlaying("FaceAppear"..data.FAW) and sprhs:GetFrame() == 12
-				and math.random(1,2) == 1 then
+				and rng:Random(1,2) == 1 then
 					boss.State = 601
-					boss.I2 = math.random(0,299)
-					boss.StateFrame = math.random(200,350)
+					boss.I2 = rng:Random(0,299)
+					boss.StateFrame = rng:Random(200,350)
 					sprhs:Play("AttackLoop"..data.FAW, true)
 				end
 			end
@@ -310,7 +311,7 @@ function HMBP:Hush(boss)
 					local C1 = REPENTANCE and (70 / 255) or 70
 					local C2 = REPENTANCE and {20 / 255, 50 / 255} or {20, 50}
 
-					local eye1 = HMBP.ProjectileParams()
+					local eye1 = ProjectileParams()
 					eye1.HeightModifier = -10
 					eye1.Variant = 6
 					eye1.FallingSpeedModifier = 0
@@ -345,7 +346,7 @@ function HMBP:Hush(boss)
 					local C1 = REPENTANCE and (70 / 255) or 70
 					local C2 = REPENTANCE and {20 / 255, 50 / 255} or {20, 50}
 
-					local eye2 = HMBP.ProjectileParams()
+					local eye2 = ProjectileParams()
 					eye2.HeightModifier = -10
 					eye2.Variant = 6
 					eye2.FallingSpeedModifier = 0
@@ -371,7 +372,7 @@ function HMBP:Hush(boss)
 						end
 					end
 				end
-				local mouth = HMBP.ProjectileParams()
+				local mouth = ProjectileParams()
 				mouth.Variant = 6
 				mouth.HeightModifier = -3.5
 				mouth.FallingSpeedModifier = 0
@@ -396,12 +397,12 @@ function HMBP:Hush(boss)
 					if boss.StateFrame % 45 == 0 then
 						local Div = REPENTANCE and 255 or 1
 
-						mouth.BulletFlags = 1 << math.random(11, 12)
+						mouth.BulletFlags = 1 << rng:Random(11, 12)
 						mouth.TargetPosition = bltpos3
 						mouth.Color = Color(1, 1, 1, 1, 70 / Div, 35 / Div, 0)
 
 						for i=0, 355, 5 do
-							if not ((i >= 0 and i <= 25) or (i >= 180 and i <= 205)) and math.random(1,2) ~= 1 then
+							if not ((i >= 0 and i <= 25) or (i >= 180 and i <= 205)) and rng:Random(1,2) ~= 1 then
 								boss:FireProjectiles(bltpos3, Vector.FromAngle(angle+i):Resized(5.3), 0, mouth)
 							end
 						end
@@ -451,11 +452,11 @@ function HMBP:Hush(boss)
 			end
 		end
 		if boss.HitPoints / boss.MaxHitPoints <= 0.3 and sprhs:GetFrame() == 1
-		and ((sprhs:IsPlaying("OpenMouth") and math.random(1,3) == 1)
-		or (sprhs:IsPlaying("LaserStart") and math.random(1,2) == 1)) and not data.handatck then
+		and ((sprhs:IsPlaying("OpenMouth") and rng:Random(1,3) == 1)
+		or (sprhs:IsPlaying("LaserStart") and rng:Random(1,2) == 1)) and not data.handatck then
 			sprhs:Play("Puffed", true)
 			boss.State = 350
-			boss.StateFrame = math.random(450,500)
+			boss.StateFrame = rng:Random(450,500)
 		end
 		if boss.HitPoints / boss.MaxHitPoints <= 0.4 and boss.State == 3 and not data.VesselSpawn then
 			if Room:GetCenterPos():Distance(boss.Position) < 60 then
@@ -469,14 +470,14 @@ function HMBP:Hush(boss)
 		if boss.HitPoints / boss.MaxHitPoints <= 0.5 then
 			if boss.State == 300 and sprhs:IsPlaying("FaceVanishFromDown") then
 				boss.State = 301
-				boss.I2 = math.random(2,5)
+				boss.I2 = rng:Random(2,5)
 				boss.ProjectileCooldown = 0
-				if math.random(1,2) == 1 then data.FAW = "LD" else data.FAW = "RD" end
+				if rng:Random(1,2) == 1 then data.FAW = "LD" else data.FAW = "RD" end
 			end
 		end
 
 		if boss.HitPoints / boss.MaxHitPoints <= 0.6 and (sprhs:IsPlaying("Tell1") or sprhs:IsPlaying("OpenMouth"))
-		and sprhs:GetFrame() == 1 and math.random(1, 2) == 1 and data.NumSpit < 2 then
+		and sprhs:GetFrame() == 1 and rng:Random(1, 2) == 1 and data.NumSpit < 2 then
 			sprhs:Play("Spit", true)
 			boss.State = 666
 		end
@@ -499,5 +500,4 @@ function HMBP:Hush(boss)
 	end
 end
 
-
-HMBP:AddCallback(ModCallbacks.MC_NPC_UPDATE, HMBP.Hush, 407)
+HMBP:AddCallback(ModCallbacks.MC_NPC_UPDATE, HMBP.Hush, EntityType.ENTITY_HUSH)

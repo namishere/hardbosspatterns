@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<metadata>
+    <name>HMBP MOD Entity n API Pack</name>
+    <directory>hmbpepttn</directory>
+    <id>1434460098</id>
+    <description>This MOD is a entities collection to be used in HMBP MODs.
+If this MOD is not enabled, major bosses will not use some patterns or enter to a new phase.
+</description>
+    <version>1.26</version>
+    <visibility>Public</visibility>
+    <tag id="Lua"/>
+    <tag id="Enemies"/>
+    <tag id="Bosses"/>
+    <tag id="Music"/>
+</metadata>
